@@ -25,17 +25,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: const <Widget>[
-            Text(
-              'Hashi',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 64,
-                color: Colors.orange,
+            Center(
+              child: Text(
+                'Hashi',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 64,
+                  color: Colors.orange,
+                ),
               ),
             ),
+            SizedBox(height: 48),
             LoginForm(),
           ],
         ),
@@ -59,20 +63,34 @@ class _LoginFormState extends State<LoginForm> {
         children: <Widget>[
           TextFormField(
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Email',
-            ),
+            decoration: InputDecoration(
+                labelText: 'Email',
+                contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                )),
           ),
+          const SizedBox(height: 8),
           TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Password',
-            ),
+            autofocus: false,
+            obscureText: true,
+            decoration: InputDecoration(
+                labelText: 'Password',
+                contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                )),
           ),
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 32.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
                 backgroundColor: Colors.orange,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(64),
+                ),
               ),
               onPressed: (() {
                 // validate form.
@@ -81,6 +99,7 @@ class _LoginFormState extends State<LoginForm> {
                 'Login',
                 style: TextStyle(
                   color: Colors.white,
+                  fontSize: 24,
                 ),
               ),
             ),
