@@ -101,10 +101,7 @@ class _LoginFormState extends State<LoginForm> {
                   borderRadius: BorderRadius.circular(64),
                 ),
               ),
-              onPressed: () {
-                // [TODO]: Validate form.
-                login;
-              },
+              onPressed: login,
               child: const Text(
                 'Login',
                 style: TextStyle(
