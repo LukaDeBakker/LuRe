@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lure/api/mangadex_api.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,12 +45,31 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final MangaDexapi _mangaDexapi = MangaDexapi();
+
+  Future<void> login() async {
+    // This will be my main login function
+
+    final token =
+        await _mangaDexapi.login(emailController.text, passwordController.text);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => const HomePage()),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Column(
         children: <Widget>[
           TextFormField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 labelText: 'Email',
@@ -60,6 +80,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 8),
           TextFormField(
+            controller: passwordController,
             autofocus: false,
             obscureText: true,
             decoration: InputDecoration(
@@ -81,13 +102,8 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
               onPressed: () {
-                // validate form.
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const HomePage()),
-                  ),
-                );
+                // [TODO]: Validate form.
+                login;
               },
               child: const Text(
                 'Login',
