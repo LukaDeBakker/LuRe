@@ -1,13 +1,13 @@
-part 'user.g.dart';
-
 class AuthenticationTokenResponse {
   String session;
   String refresh;
 
-  AuthenticationTokenResponse(this.session, this.refresh);
+  AuthenticationTokenResponse({required this.session, required this.refresh});
 
-  factory AuthenticationTokenResponse.fromJson(Map<String, dynamic> data) =>
-      _$AuthenticationTokenResponseFromJson(data);
-
-  Map<String, dynamic> toJson() => _$AuthenticationTokenResponseToJson(this);
+  factory AuthenticationTokenResponse.fromJson(Map<String, dynamic> json) {
+    return AuthenticationTokenResponse(
+      session: json['session'],
+      refresh: json['refresh'],
+    );
+  }
 }
