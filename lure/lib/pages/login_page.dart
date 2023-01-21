@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lure/api/mangadex_api.dart';
 import 'home_page.dart';
+import 'package:lure/utils/form_validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -48,29 +49,51 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final MangaDexapi _mangaDexapi = MangaDexapi();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> login() async {
     // This will be my main login function
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Processing Data'),
+        backgroundColor: Colors.green.shade300,
+      ));
+    } else {
+      return;
+    }
 
     final token =
         await _mangaDexapi.login(emailController.text, passwordController.text);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: ((context) => const HomePage()),
-      ),
-    );
+    if (token.result == "ok") {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Invalid login credentials.'),
+        backgroundColor: Colors.red.shade300,
+      ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: <Widget>[
           TextFormField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              return LoginFormValidator.validateEmail(value ?? "");
+            },
             decoration: InputDecoration(
                 labelText: 'Email',
                 contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
