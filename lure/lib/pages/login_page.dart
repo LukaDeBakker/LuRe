@@ -65,6 +65,11 @@ class _LoginFormState extends State<LoginForm> {
     final token = await _mangaDexapi.login(
         usernameController.text, passwordController.text);
 
+    // Check out how this works and how to avoid it in the future.
+    if (!mounted) {
+      return;
+    }
+
     if (token.result == "ok") {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
