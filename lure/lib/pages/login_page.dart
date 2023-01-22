@@ -46,7 +46,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final MangaDexapi _mangaDexapi = MangaDexapi();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -62,8 +62,8 @@ class _LoginFormState extends State<LoginForm> {
       return;
     }
 
-    final token =
-        await _mangaDexapi.login(emailController.text, passwordController.text);
+    final token = await _mangaDexapi.login(
+        usernameController.text, passwordController.text);
 
     if (token.result == "ok") {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -89,13 +89,13 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: emailController,
-            keyboardType: TextInputType.emailAddress,
+            controller: usernameController,
+            keyboardType: TextInputType.text,
             validator: (value) {
               return LoginFormValidator.validateEmail(value ?? "");
             },
             decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: 'Userame',
                 contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
@@ -106,6 +106,9 @@ class _LoginFormState extends State<LoginForm> {
             controller: passwordController,
             autofocus: false,
             obscureText: true,
+            validator: (value) {
+              return LoginFormValidator.validatePassword(value ?? "");
+            },
             decoration: InputDecoration(
                 labelText: 'Password',
                 contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
