@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lure/api/mangadex_api.dart';
 import 'home_page.dart';
 import 'package:lure/utils/form_validator.dart';
+import 'package:lure/resources/colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 64,
-                  color: Colors.orange,
+                  color: ProjectColors.orange,
                 ),
               ),
             ),
@@ -54,9 +55,9 @@ class _LoginFormState extends State<LoginForm> {
   Future<void> login() async {
     // This will be my main login function
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Processing Data'),
-        backgroundColor: Colors.green.shade300,
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Processing Data'),
+        backgroundColor: ProjectColors.green,
       ));
     } else {
       return;
@@ -80,9 +81,9 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Invalid login credentials.'),
-        backgroundColor: Colors.red.shade300,
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Invalid login credentials.'),
+        backgroundColor: ProjectColors.red,
       ));
     }
   }
@@ -127,7 +128,7 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                backgroundColor: Colors.orange,
+                backgroundColor: ProjectColors.orange,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(64),
                 ),
@@ -136,7 +137,7 @@ class _LoginFormState extends State<LoginForm> {
               child: const Text(
                 'Login',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: ProjectColors.white,
                   fontSize: 24,
                 ),
               ),
